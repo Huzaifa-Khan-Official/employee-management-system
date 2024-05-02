@@ -4,10 +4,8 @@ import Modal from 'react-bootstrap/Modal';
 import FormComponent from '../Form/Form';
 
 function ModalComponent({ show, setShow }) {
-
     const handleClose = () => setShow(false);
 
-    console.log("me chala");
     return (
         <>
             <Modal show={show} onHide={handleClose}>
