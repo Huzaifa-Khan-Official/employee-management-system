@@ -1,4 +1,4 @@
-import { addDoc, collection, deleteDoc, doc, getDoc, onSnapshot } from "firebase/firestore";
+import { addDoc, arrayUnion, collection, deleteDoc, doc, getDoc, onSnapshot, updateDoc } from "firebase/firestore";
 
 import { employeesEntity } from "../lib/employeesEntity";
 import { db } from "../Configurations/FirebaseConfigurations/Firebase.config";
@@ -17,4 +17,16 @@ export const getAllEmployees = (callback) => {
     } catch (error) {
         console.error("Error fetching products:", error);
     }
+}
+
+export const addProduct = async (data) => {
+    await addDoc(collection(db, `${employeesEntity}`), {
+        ...data
+    });
+
+    const employeeRef = doc(db, `${employeesEntity}/${data.supervisorId}`);
+
+    await updateDoc(employeeRef, {
+        subordinates: arrayUnion(data.name)
+    });
 }

@@ -1,21 +1,21 @@
 import Modal from 'react-bootstrap/Modal';
-import FormComponent from '../Form/Form';
+import Tree from 'react-d3-tree';
 
-function ModalComponent({ show, setShow }) {
+function SuborderModal({ show, setShow }) {
     const handleClose = () => setShow(false);
 
     return (
         <>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Add Employee</Modal.Title>
+                    <Modal.Title>Suborders</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <FormComponent handleClose={handleClose} setShow={setShow}/>
+                    <h1>Sub order</h1>
                 </Modal.Body>
             </Modal>
         </>
     );
 }
 
-export default ModalComponent;
+export default SuborderModal;

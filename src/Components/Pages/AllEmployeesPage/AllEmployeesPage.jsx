@@ -8,7 +8,6 @@ export default function AllEmployeesPage() {
     const [employees, setEmployees] = useState(null);
     const { loader, setLoader } = useContext(LoaderContext)
 
-
     useEffect(() => {
         setLoader(true)
         const unsubscribe = getAllEmployees((employeesList) => {
