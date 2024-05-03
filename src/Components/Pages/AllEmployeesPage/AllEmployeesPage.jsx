@@ -24,7 +24,7 @@ export default function AllEmployeesPage() {
             <h1>All Employees</h1>
 
             {
-                loader ? <LoaderComponent /> : <AllEmployeesTable />
+                loader ? <LoaderComponent /> : <AllEmployeesTable employees={employees} />
             }
         </div>
     )

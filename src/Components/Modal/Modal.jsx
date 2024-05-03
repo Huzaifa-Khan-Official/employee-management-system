@@ -13,16 +13,8 @@ function ModalComponent({ show, setShow }) {
                     <Modal.Title>Modal heading</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <FormComponent />
+                    <FormComponent handleClose={handleClose} setShow={setShow}/>
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
-                    <Button variant="primary" onClick={handleClose}>
-                        Add Employee
-                    </Button>
-                </Modal.Footer>
             </Modal>
         </>
     );
