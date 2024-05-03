@@ -1,17 +1,17 @@
 import { addDoc, collection, deleteDoc, doc, getDoc, onSnapshot } from "firebase/firestore";
 
-import { supervisorEntity } from "../lib/supervisorEntity";
+import { employeesEntity } from "../lib/employeesEntity";
 import { db } from "../Configurations/FirebaseConfigurations/Firebase.config";
 
-export const getAllSupervisors = (callback) => {
+export const getAllEmployees = (callback) => {
     try {
-        const q = collection(db, supervisorEntity);
+        const q = collection(db, employeesEntity);
 
         return onSnapshot(q, (snapshot) => {
-            const productsList = snapshot.docs.map((doc) => {
+            const employeesList = snapshot.docs.map((doc) => {
                 return { ...doc.data(), id: doc.id };
             });
-            callback(productsList);
+            callback(employeesList);
         });
 
     } catch (error) {

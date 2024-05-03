@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Form } from 'react-bootstrap'
-import { getAllSupervisors } from '../../Services/Employee.sevices';
+import { getAllEmployees } from '../../Services/Employee.sevices';
 
 export default function FormComponent() {
-    const [supervisors, setSupervisors] = useState(null);
+    const [employees, setEmployees] = useState(null);
 
     useEffect(() => {
-        const unsubscribe = getAllSupervisors((supervisorsList) => {
-            setSupervisors(supervisorsList);
+        const unsubscribe = getAllEmployees((employeesList) => {
+            setEmployees(employeesList);
         });
 
         return () => unsubscribe();
@@ -32,10 +32,10 @@ export default function FormComponent() {
                 <Form.Select aria-label="Default select example" defaultValue="default">
                     <option disabled value="default">Select your reporting supervisor</option>
                     {
-                        supervisors &&
-                        supervisors.map((supervisor, index) => {
+                        employees &&
+                        employees.map((employee, index) => {
                             return (
-                                <option key={index} value={supervisor.name}>{supervisor.name}</option>
+                                <option key={index} value={employee.id}>{employee.name} / {employee.position}</option>
                             )
                         })
                     }
