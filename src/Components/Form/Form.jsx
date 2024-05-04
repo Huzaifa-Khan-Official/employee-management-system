@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Button, Form, Modal } from 'react-bootstrap'
-import { addProduct, getAllEmployees } from '../../Services/Employee.sevices';
+import { addEmployee, getAllEmployees } from '../../Services/Employee.sevices';
 import { useForm } from 'react-hook-form';
 import "./Form.css"
 import LoaderContext from '../../Context/Loader.context';
@@ -29,7 +29,7 @@ export default function FormComponent({ handleClose, setShow }) {
     const onSubmit = async (data) => {
         setShow(false);
         setLoader(true);
-        await addProduct(data);
+        await addEmployee(data);
         setLoader(false);
         reset();
     }

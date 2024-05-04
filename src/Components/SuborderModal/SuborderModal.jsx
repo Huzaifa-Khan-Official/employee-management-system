@@ -1,44 +1,36 @@
 import Modal from 'react-bootstrap/Modal';
 import Tree from 'react-d3-tree';
 import "./SuborderModal.css"
+import { useLayoutEffect, useState } from 'react';
+import { getEmployeeData } from '../../Services/Employee.sevices'
 
 function SuborderModal({ show, setShow, selectedEmployee }) {
     const handleClose = () => setShow(false);
+    const [employeeData, setEmployeeData] = useState(null);
 
-    console.log(selectedEmployee);
+    useLayoutEffect(() => {
+        (async () => {
+            const data = await getEmployeeData(selectedEmployee);
+            setEmployeeData(data);
+        })()
+
+    }, []);
 
     const orgChart = {
-        name: 'CEO',
+        name: employeeData?.supervisorData?.name,
+        attributes: {
+            Position: employeeData?.supervisorData?.position
+        },
         children: [
             {
-                name: 'Manager',
+                name: employeeData?.name,
                 attributes: {
-                    department: 'Production',
+                    Position: employeeData?.position,
                 },
-                children: [
-                    {
-                        name: 'Foreman',
-                        attributes: {
-                            department: 'Fabrication',
-                        },
-                        children: [
-                            {
-                                name: 'Worker',
-                            },
-                        ],
-                    },
-                    {
-                        name: 'Foreman',
-                        attributes: {
-                            department: 'Assembly',
-                        },
-                        children: [
-                            {
-                                name: 'Worker',
-                            },
-                        ],
-                    },
-                ],
+                children:
+                    employeeData?.subordinates?.map((employee) => {
+                        return { name: employee }
+                    })
             },
         ],
     };
@@ -50,8 +42,9 @@ function SuborderModal({ show, setShow, selectedEmployee }) {
                     <Modal.Title>Suborders</Modal.Title>
                 </Modal.Header>
                 <Modal.Body style={{ height: "79vh" }}>
-                    <h1>Sub order</h1>
-                    <Tree data={orgChart} orientation='vertical' />
+                    {
+                        employeeData ? <Tree data={orgChart} orientation='vertical' /> : <h2>Loading...</h2>
+                    }
                 </Modal.Body>
             </Modal>
         </>
