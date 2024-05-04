@@ -4,8 +4,12 @@ import SuborderModal from '../SuborderModal/SuborderModal';
 
 function AllEmployeesTable({ employees }) {
     const [show, setShow] = useState(false);
+    const [selectedEmployee, setSelectedEmployee] = useState(null);
 
-    const handleShow = () => setShow(true);
+    const viewSubordinates = (id) => {
+        setSelectedEmployee(id)
+        setShow(true)
+    }
 
     return (
         <div>
@@ -29,7 +33,9 @@ function AllEmployeesTable({ employees }) {
                                     <td>{employee.position}</td>
                                     <td>{employee.email}</td>
                                     <td>
-                                        <Button variant="primary" onClick={handleShow}>
+                                        <Button variant="primary"
+                                            onClick={() => viewSubordinates(employee.id)}
+                                        >
                                             View Subordinates
                                         </Button>
                                     </td>
@@ -40,7 +46,7 @@ function AllEmployeesTable({ employees }) {
                 </tbody>
             </Table>
             {
-                show && <SuborderModal show={show} setShow={setShow} />
+                show && <SuborderModal show={show} setShow={setShow} selectedEmployee={selectedEmployee} />
             }
         </div>
     )
